@@ -14,5 +14,5 @@ public interface StrategyHandler<T,D,R>{
     */
 
 
-    R apply(T requestParam, D dynamicContext);
+    R apply(T requestParam, D dynamicContext) throws Exception;
 }

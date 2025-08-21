@@ -13,8 +13,7 @@ public abstract class AbstractStrategyRouter<T,D,R> implements StrategyMapper<T,
 
 
 
-
-    public R router(T requestParam, D dynamicContext){
+    public R router(T requestParam, D dynamicContext) throws Exception{
         StrategyHandler<T, D, R> strategyHandler = get(requestParam, dynamicContext);
 
         if(null!=strategyHandler){

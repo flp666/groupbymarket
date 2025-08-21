@@ -2,6 +2,8 @@ package cn.bugstack.domain.activity.service.trial.factory;
 
 import cn.bugstack.domain.activity.model.entity.MarketProductEntity;
 import cn.bugstack.domain.activity.model.entity.TrialBalanceEntity;
+import cn.bugstack.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import cn.bugstack.domain.activity.model.valobj.SkuVO;
 import cn.bugstack.domain.activity.service.trial.node.RootNode;
 import cn.bugstack.types.design.framework.tree.StrategyHandler;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,8 @@ public class DefaultActivityStrategyFactory {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DynamicContext{
+        private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
+        private SkuVO skuVO;
 
     }
 }
