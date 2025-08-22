@@ -25,7 +25,7 @@ public class EndNode extends AbstractGroupBuyMarketSupport{
         GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
         SkuVO skuVO = dynamicContext.getSkuVO();
 
-        log.info("我收到的skuVo:{}",skuVO.toString());//刚开始输出没有商品名字 调试日志
+        //log.info("我收到的skuVo:{}",skuVO.toString());//刚开始输出没有商品名字 调试日志
 
         return TrialBalanceEntity.builder()
                 .goodsId(skuVO.getGoodsId())
