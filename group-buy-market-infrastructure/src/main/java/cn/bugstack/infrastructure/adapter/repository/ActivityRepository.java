@@ -1,6 +1,7 @@
 package cn.bugstack.infrastructure.adapter.repository;
 
 import cn.bugstack.domain.activity.adapter.repository.IActivityRepository;
+import cn.bugstack.domain.activity.model.valobj.DiscountTypeEnum;
 import cn.bugstack.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import cn.bugstack.domain.activity.model.valobj.SkuVO;
 import cn.bugstack.infrastructure.dao.IGroupBuyActivityDao;
@@ -44,7 +45,7 @@ public class ActivityRepository implements IActivityRepository {
                 .builder()
                 .discountDesc(groupBuyDiscountRes.getDiscountDesc())
                 .discountName(groupBuyDiscountRes.getDiscountName())
-                .discountType(groupBuyDiscountRes.getDiscountType())
+                .discountType(DiscountTypeEnum.get(groupBuyDiscountRes.getDiscountType()))
                 .marketExpr(groupBuyDiscountRes.getMarketExpr())
                 .marketPlan(groupBuyDiscountRes.getMarketPlan())
                 .build();
