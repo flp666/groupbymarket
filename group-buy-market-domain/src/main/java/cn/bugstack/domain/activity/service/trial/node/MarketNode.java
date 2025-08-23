@@ -33,6 +33,9 @@ public class MarketNode extends AbstractGroupBuyMarketSupport {
     private ErrorNode errorNode;
 
     @Resource
+    private TagNode tagNode;
+
+    @Resource
     private Map<String, IDiscountCalculateService> discountCalculateServiceMap;
 
 
@@ -83,7 +86,7 @@ public class MarketNode extends AbstractGroupBuyMarketSupport {
             return errorNode;// 不存在配置的拼团活动，走异常节点
         }
 
-        return endNode;
+        return tagNode;
     }
 
 

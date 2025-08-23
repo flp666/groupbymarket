@@ -15,7 +15,7 @@ import java.util.concurrent.TimeoutException;
 public abstract class AbstractGroupBuyMarketSupport extends AbstractMultiThreadStrategyRouter
         <MarketProductEntity,DefaultActivityStrategyFactory.DynamicContext, TrialBalanceEntity> {
 
-    //注意这里timeout repository都是MarketNode里面线程部分要用到的 老师把repository定义到这了
+    //注意这里timeout repository都是MarketNode里面线程部分要用到的 老师把repository在这注入了
     protected long timeout = 500;
     @Resource
     protected IActivityRepository repository;

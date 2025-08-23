@@ -1,11 +1,14 @@
 package cn.bugstack.domain.activity.model.valobj;
 
+import cn.bugstack.types.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
@@ -78,6 +81,39 @@ public class GroupBuyActivityDiscountVO {
      * 人群标签规则范围
      */
     private String tagScope;
+
+    /*public boolean isVisible() {
+        if(StringUtils.isBlank(this.tagScope)) return true;
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if (split.length > 0 && Objects.equals(split[0], "1") && StringUtils.isNotBlank(split[0])) {
+            return false;
+        }
+        return true;
+    }不返回true false了 利用枚举*/
+
+
+
+    public boolean isVisible() {
+        if(StringUtils.isBlank(this.tagScope)) return TagScopeEnumVO.VISIBLE.getAllow();
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if (split.length > 0 && Objects.equals(split[0], "1") && StringUtils.isNotBlank(split[0])) {
+            return TagScopeEnumVO.VISIBLE.getRefuse();
+        }
+        return TagScopeEnumVO.VISIBLE.getAllow();
+    }
+
+    public boolean isEnable(){
+        if(StringUtils.isBlank(this.tagScope)) return TagScopeEnumVO.ENABLE.getAllow();
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if(split.length>0 && Objects.equals(split[1],"2") && StringUtils.isNotBlank(split[1])){
+            return TagScopeEnumVO.ENABLE.getRefuse();
+        }
+        return TagScopeEnumVO.ENABLE.getAllow();
+    }
+
+
+
+
 
     @Getter
     @Builder

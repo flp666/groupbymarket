@@ -9,10 +9,9 @@ import cn.bugstack.infrastructure.dao.IGroupBuyActivityDao;
 import cn.bugstack.infrastructure.dao.IGroupBuyDiscountDao;
 import cn.bugstack.infrastructure.dao.IScSkuActivityDao;
 import cn.bugstack.infrastructure.dao.ISkuDao;
-import cn.bugstack.infrastructure.dao.po.GroupBuyActivity;
-import cn.bugstack.infrastructure.dao.po.GroupBuyDiscount;
-import cn.bugstack.infrastructure.dao.po.ScSkuActivity;
-import cn.bugstack.infrastructure.dao.po.Sku;
+import cn.bugstack.infrastructure.dao.po.*;
+import cn.bugstack.infrastructure.redis.IRedisService;
+import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -29,6 +28,10 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private IScSkuActivityDao scSkuActivityDao;
+
+
+    @Resource
+    private IRedisService redisService;
 
 
     @Override
@@ -115,4 +118,22 @@ public class ActivityRepository implements IActivityRepository {
     }
 
 
+
+    @Override
+    // 判断用户是否存在人群标签中
+    //注意 从redis里查
+    public Boolean isTagCrowdRange(String userId, String tagId) {
+        RBitSet bitSet = redisService.getBitSet(tagId);
+        if (!bitSet.isExists()) return true;
+
+        return bitSet.get(redisService.getIndexFromUserId(userId));
+    }
+
+
 }
+
+
+
+
+
+
