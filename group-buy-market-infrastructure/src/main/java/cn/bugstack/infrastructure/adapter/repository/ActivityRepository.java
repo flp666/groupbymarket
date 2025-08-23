@@ -10,6 +10,7 @@ import cn.bugstack.infrastructure.dao.IGroupBuyDiscountDao;
 import cn.bugstack.infrastructure.dao.IScSkuActivityDao;
 import cn.bugstack.infrastructure.dao.ISkuDao;
 import cn.bugstack.infrastructure.dao.po.*;
+import cn.bugstack.infrastructure.dcc.DCCService;
 import cn.bugstack.infrastructure.redis.IRedisService;
 import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,10 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private IRedisService redisService;
+
+
+    @Resource
+    private DCCService dccService;
 
 
     @Override
@@ -127,6 +132,16 @@ public class ActivityRepository implements IActivityRepository {
         if (!bitSet.isExists()) return true;
 
         return bitSet.get(redisService.getIndexFromUserId(userId));
+    }
+
+    @Override
+    public boolean downgradeSwitch() {
+        return dccService.isDowngradeSwitch();
+    }
+
+    @Override
+    public boolean cutRange(String userId) {
+        return dccService.isCutRange(userId);
     }
 
 
