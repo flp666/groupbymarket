@@ -1,5 +1,6 @@
 package cn.bugstack.domain.activity.model.entity;
 
+import cn.bugstack.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +35,8 @@ public class TrialBalanceEntity {
     private Boolean isVisible;
     /** 是否可参与进团 */
     private Boolean isEnable;
+
+
+    private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
 
 }

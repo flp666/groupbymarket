@@ -17,6 +17,6 @@
 
     <select id="queryByScGoodsId" resultMap="dataMap">
         select * from sc_sku_activity
-            where goods_id=#{goodsId}
+            where goods_id=#{goodsId} and source=#{source} and channel=#{channel}
     </select>
 </mapper>
