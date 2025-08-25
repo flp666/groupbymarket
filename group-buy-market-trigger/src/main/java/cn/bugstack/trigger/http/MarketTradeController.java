@@ -20,10 +20,7 @@ import cn.bugstack.types.exception.AppException;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -39,6 +36,7 @@ public class MarketTradeController implements IMarketTradeService {
     @Resource
     private IIndexGroupBuyMarketService indexGroupBuyMarketService;
 
+    @RequestMapping(value = "lock_market_pay_order", method = RequestMethod.POST)
     public Response<LockMarketPayOrderResponseDTO> lockMarketPayOrder(@RequestBody LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO) throws Exception {
 
         try {
@@ -91,6 +89,8 @@ public class MarketTradeController implements IMarketTradeService {
                 }
             }
 
+
+
             //营销优惠试算
             MarketProductEntity marketProductEntity = MarketProductEntity.builder()
                     .userId(userId)
@@ -100,6 +100,17 @@ public class MarketTradeController implements IMarketTradeService {
                     .build();
             TrialBalanceEntity trialBalanceEntity = indexGroupBuyMarketService.indexMarketTrial(marketProductEntity);
             GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = trialBalanceEntity.getGroupBuyActivityDiscountVO();
+
+
+            //人群标签过滤  2-7的人群标签节点过滤 TagNode 表示用户是否可见可参与这个活动 E0007:"拼团人群限定，不可参与"
+            Boolean isVisible = trialBalanceEntity.getIsVisible();
+            Boolean isEnable = trialBalanceEntity.getIsEnable();
+            if((!isVisible) || (!isEnable)){
+                return Response.<LockMarketPayOrderResponseDTO>builder()
+                        .code(ResponseCode.E0007.getCode())
+                        .info(ResponseCode.E0007.getInfo())
+                        .build();
+            }
 
 
             //锁单
@@ -121,6 +132,7 @@ public class MarketTradeController implements IMarketTradeService {
                             .originalPrice(trialBalanceEntity.getOriginalPrice())
                             .deductionPrice(trialBalanceEntity.getDeductionPrice())
                             .outTradeNo(outTradeNo)
+                            .payPrice(trialBalanceEntity.getPayPrice())
                             .build()
             );
 

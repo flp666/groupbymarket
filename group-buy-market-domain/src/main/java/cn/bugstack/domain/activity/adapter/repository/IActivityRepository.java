@@ -4,6 +4,7 @@ package cn.bugstack.domain.activity.adapter.repository;
 import cn.bugstack.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import cn.bugstack.domain.activity.model.valobj.ScSkuActivityVo;
 import cn.bugstack.domain.activity.model.valobj.SkuVO;
+import cn.bugstack.domain.trade.model.entity.GroupBuyActivityEntity;
 import org.springframework.stereotype.Repository;
 
 //不用@Repository
@@ -24,4 +25,9 @@ public interface IActivityRepository {
 
     boolean cutRange(String userId);
 
+
+    GroupBuyActivityEntity queryGroupBuyActivityByActivityId(Long activityId);
+
+
+    Integer queryOrderCountByActivityId(Long activityId, String userId);
 }

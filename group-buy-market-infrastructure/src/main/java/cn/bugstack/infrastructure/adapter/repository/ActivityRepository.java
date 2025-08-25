@@ -5,13 +5,12 @@ import cn.bugstack.domain.activity.model.valobj.DiscountTypeEnum;
 import cn.bugstack.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import cn.bugstack.domain.activity.model.valobj.ScSkuActivityVo;
 import cn.bugstack.domain.activity.model.valobj.SkuVO;
-import cn.bugstack.infrastructure.dao.IGroupBuyActivityDao;
-import cn.bugstack.infrastructure.dao.IGroupBuyDiscountDao;
-import cn.bugstack.infrastructure.dao.IScSkuActivityDao;
-import cn.bugstack.infrastructure.dao.ISkuDao;
+import cn.bugstack.domain.trade.model.entity.GroupBuyActivityEntity;
+import cn.bugstack.infrastructure.dao.*;
 import cn.bugstack.infrastructure.dao.po.*;
 import cn.bugstack.infrastructure.dcc.DCCService;
 import cn.bugstack.infrastructure.redis.IRedisService;
+import cn.bugstack.types.enums.ActivityStatusEnumVO;
 import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +36,9 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private DCCService dccService;
+
+    @Resource
+    private IGroupBuyOrderListDao groupBuyOrderListDao;
 
 
     @Override
@@ -142,6 +144,38 @@ public class ActivityRepository implements IActivityRepository {
     @Override
     public boolean cutRange(String userId) {
         return dccService.isCutRange(userId);
+    }
+
+    @Override
+    public GroupBuyActivityEntity queryGroupBuyActivityByActivityId(Long activityId) {
+
+        GroupBuyActivity groupBuyActivity=groupBuyActivityDao.queryGroupBuyActivityByActivityId(activityId);
+        return GroupBuyActivityEntity.builder()
+                .activityId(groupBuyActivity.getActivityId())
+                .activityName(groupBuyActivity.getActivityName())
+                .discountId(groupBuyActivity.getDiscountId())
+                .groupType(groupBuyActivity.getGroupType())
+                .takeLimitCount(groupBuyActivity.getTakeLimitCount())
+                .target(groupBuyActivity.getTarget())
+                .validTime(groupBuyActivity.getValidTime())
+                .status(ActivityStatusEnumVO.valueOf(groupBuyActivity.getStatus()))
+                .startTime(groupBuyActivity.getStartTime())
+                .endTime(groupBuyActivity.getEndTime())
+                .tagId(groupBuyActivity.getTagId())
+                .tagScope(groupBuyActivity.getTagScope())
+                .build();
+    }
+
+
+
+
+    @Override
+    public Integer queryOrderCountByActivityId(Long activityId, String userId) {
+        GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
+        groupBuyOrderListReq.setActivityId(activityId);
+        groupBuyOrderListReq.setUserId(userId);
+
+        return groupBuyOrderListDao.queryOrderCountByActivityId(groupBuyOrderListReq);
     }
 
 

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Rule02TradeRuleFactory {
 
-    @Bean("demo01")
+    @Bean("demo01")  // 创建并配置第一个责任链实例(demo01)，包含两个处理器
     public BusinessLinkedList<String, DynamicContext, XxxResponse> demo01(RuleLogic201 ruleLogic201, RuleLogic202 ruleLogic202) {
 
         LinkArmory<String, DynamicContext, XxxResponse> linkArmory = new LinkArmory<>("demo01", ruleLogic201, ruleLogic202);
@@ -40,6 +40,7 @@ public class Rule02TradeRuleFactory {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
+    // 动态上下文类，用于在处理器间共享数据
     public static class DynamicContext {
         private String age;
     }

@@ -12,6 +12,7 @@ import cn.bugstack.infrastructure.dao.IGroupBuyOrderDao;
 import cn.bugstack.infrastructure.dao.IGroupBuyOrderListDao;
 import cn.bugstack.infrastructure.dao.po.GroupBuyOrder;
 import cn.bugstack.infrastructure.dao.po.GroupBuyOrderList;
+import cn.bugstack.types.common.Constants;
 import cn.bugstack.types.enums.ResponseCode;
 import cn.bugstack.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
@@ -59,9 +60,11 @@ public class TradeRepository implements ITradeRepository {
     @Override
     public MarketPayOrderEntity lockMarketPayOrder(GroupBuyOrderAggregate aggregate) {
 
+        //聚合对象信息
         PayActivityEntity payActivityEntity = aggregate.getPayActivityEntity();
         PayDiscountEntity payDiscountEntity = aggregate.getPayDiscountEntity();
         UserEntity userEntity = aggregate.getUserEntity();
+        Integer userTakeOrderCount = aggregate.getUserTakeOrderCount();
 
         String teamId = payActivityEntity.getTeamId();
 
@@ -79,7 +82,7 @@ public class TradeRepository implements ITradeRepository {
                     .channel(payDiscountEntity.getChannel())
                     .originalPrice(payDiscountEntity.getOriginalPrice())
                     .deductionPrice(payDiscountEntity.getDeductionPrice())
-                    .payPrice(payDiscountEntity.getDeductionPrice())
+                    .payPrice(payDiscountEntity.getPayPrice())
                     .targetCount(payActivityEntity.getTargetCount())
                     .completeCount(0)
                     .lockCount(1)
@@ -117,6 +120,9 @@ public class TradeRepository implements ITradeRepository {
                         .deductionPrice(payDiscountEntity.getDeductionPrice())
                         .status(TradeOrderStatusEnumVO.CREATE.getCode())
                         .outTradeNo(payDiscountEntity.getOutTradeNo())
+                        // 构建 bizId 唯一值；活动id_用户id_参与次数累加
+                        .bizId(payActivityEntity.getActivityId() + Constants.UNDERLINE +
+                                userEntity.getUserId() + Constants.UNDERLINE + (userTakeOrderCount + 1))
                         .build();
 
         try {
@@ -133,6 +139,5 @@ public class TradeRepository implements ITradeRepository {
                 .deductionPrice(payDiscountEntity.getDeductionPrice())
                 .tradeOrderStatusEnumVO(TradeOrderStatusEnumVO.CREATE)
                 .build();
-
     }
 }
