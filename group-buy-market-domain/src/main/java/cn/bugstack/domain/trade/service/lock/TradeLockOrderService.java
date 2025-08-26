@@ -5,7 +5,7 @@ import cn.bugstack.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import cn.bugstack.domain.trade.model.entity.*;
 import cn.bugstack.domain.trade.model.valobj.GroupBuyProgressVO;
 import cn.bugstack.domain.trade.service.ITradeLockOrderService;
-import cn.bugstack.domain.trade.service.lock.factory.TradeRuleFilterFactory;
+import cn.bugstack.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import cn.bugstack.types.design.framework.link.model2.chain.BusinessLinkedList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class TradeLockOrderService implements ITradeLockOrderService {
     @Resource
     private ITradeRepository repository;
 
-    @Resource
-    private BusinessLinkedList<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity> businessLinkedList;
+    @Resource//(name = "tradeLockRuleFilter")
+    private BusinessLinkedList<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> businessLinkedList;
 
 
 
@@ -42,11 +42,11 @@ public class TradeLockOrderService implements ITradeLockOrderService {
 
 
         //交易规则过滤 责任链过滤 过滤活动有效性和用户参与次数限制 model2责任链
-        TradeRuleCommandEntity tradeRuleCommand = TradeRuleCommandEntity.builder()
+        TradeLockRuleCommandEntity tradeRuleCommand = TradeLockRuleCommandEntity.builder()
                 .userId(userEntity.getUserId())
                 .activityId(payActivityEntity.getActivityId())
                 .build();
-        TradeRuleFilterBackEntity backEntity = businessLinkedList.apply(tradeRuleCommand, new TradeRuleFilterFactory.DynamicContext());
+        TradeLockRuleFilterBackEntity backEntity = businessLinkedList.apply(tradeRuleCommand, new TradeLockRuleFilterFactory.DynamicContext());
 
 
         // 已参与拼团量 - 用于构建数据库唯一索引使用，确保用户只能在一个活动上参与固定的次数

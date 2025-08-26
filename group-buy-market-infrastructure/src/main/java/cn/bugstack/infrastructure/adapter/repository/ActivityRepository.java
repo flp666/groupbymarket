@@ -146,37 +146,7 @@ public class ActivityRepository implements IActivityRepository {
         return dccService.isCutRange(userId);
     }
 
-    @Override
-    public GroupBuyActivityEntity queryGroupBuyActivityByActivityId(Long activityId) {
 
-        GroupBuyActivity groupBuyActivity=groupBuyActivityDao.queryGroupBuyActivityByActivityId(activityId);
-        return GroupBuyActivityEntity.builder()
-                .activityId(groupBuyActivity.getActivityId())
-                .activityName(groupBuyActivity.getActivityName())
-                .discountId(groupBuyActivity.getDiscountId())
-                .groupType(groupBuyActivity.getGroupType())
-                .takeLimitCount(groupBuyActivity.getTakeLimitCount())
-                .target(groupBuyActivity.getTarget())
-                .validTime(groupBuyActivity.getValidTime())
-                .status(ActivityStatusEnumVO.valueOf(groupBuyActivity.getStatus()))
-                .startTime(groupBuyActivity.getStartTime())
-                .endTime(groupBuyActivity.getEndTime())
-                .tagId(groupBuyActivity.getTagId())
-                .tagScope(groupBuyActivity.getTagScope())
-                .build();
-    }
-
-
-
-
-    @Override
-    public Integer queryOrderCountByActivityId(Long activityId, String userId) {
-        GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
-        groupBuyOrderListReq.setActivityId(activityId);
-        groupBuyOrderListReq.setUserId(userId);
-
-        return groupBuyOrderListDao.queryOrderCountByActivityId(groupBuyOrderListReq);
-    }
 
 
 }

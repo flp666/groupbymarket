@@ -26,8 +26,8 @@ public interface IActivityRepository {
     boolean cutRange(String userId);
 
 
-    GroupBuyActivityEntity queryGroupBuyActivityByActivityId(Long activityId);
 
 
-    Integer queryOrderCountByActivityId(Long activityId, String userId);
+
+
 }

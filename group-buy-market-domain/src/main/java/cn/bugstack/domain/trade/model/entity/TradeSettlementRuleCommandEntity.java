@@ -9,14 +9,14 @@ import java.util.Date;
 
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 交易支付订单实体对象
- * @create 2025-01-26 14:52
+ * @description 拼团交易结算规则命令
+ * @create 2025-01-29 09:55
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TradePaySuccessEntity {
+public class TradeSettlementRuleCommandEntity {//和TradePaySuccessEntity一样
 
     /** 渠道 */
     private String source;
@@ -28,6 +28,5 @@ public class TradePaySuccessEntity {
     private String outTradeNo;
     /** 外部交易时间 */
     private Date outTradeTime;
-
 
 }
