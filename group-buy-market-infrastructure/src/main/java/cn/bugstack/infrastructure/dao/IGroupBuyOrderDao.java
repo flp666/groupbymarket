@@ -19,4 +19,10 @@ public interface IGroupBuyOrderDao {
 
     GroupBuyOrder queryGroupBuyProgress(String teamId);
 
+    GroupBuyOrder queryGroupBuyTeamByTeamId(String teamId);
+
+    Integer updateAddCompleteCount(String teamId);
+
+    Integer updateOrderStatus2COMPLETE(String teamId);
+
 }

@@ -14,7 +14,7 @@ import cn.bugstack.domain.trade.model.entity.PayActivityEntity;
 import cn.bugstack.domain.trade.model.entity.PayDiscountEntity;
 import cn.bugstack.domain.trade.model.entity.UserEntity;
 import cn.bugstack.domain.trade.model.valobj.GroupBuyProgressVO;
-import cn.bugstack.domain.trade.service.ITradeOrderService;
+import cn.bugstack.domain.trade.service.ITradeLockOrderService;
 import cn.bugstack.types.enums.ResponseCode;
 import cn.bugstack.types.exception.AppException;
 import com.alibaba.fastjson.JSON;
@@ -32,7 +32,7 @@ import java.util.Objects;
 public class MarketTradeController implements IMarketTradeService {
 
     @Resource
-    private ITradeOrderService tradeOrderService;
+    private ITradeLockOrderService tradeOrderService;
     @Resource
     private IIndexGroupBuyMarketService indexGroupBuyMarketService;
 
@@ -59,7 +59,7 @@ public class MarketTradeController implements IMarketTradeService {
             }
 
             // 查询 outTradeNo 是否已经存在交易记录
-            MarketPayOrderEntity marketPayOrderEntity = tradeOrderService.queryNoPayMarketPayOrderByOutTradeNo(userId, teamId);
+            MarketPayOrderEntity marketPayOrderEntity = tradeOrderService.queryNoPayMarketPayOrderByOutTradeNo(userId, outTradeNo);
             if(null!=marketPayOrderEntity){
                 LockMarketPayOrderResponseDTO responseDTO =
                         LockMarketPayOrderResponseDTO.builder()
