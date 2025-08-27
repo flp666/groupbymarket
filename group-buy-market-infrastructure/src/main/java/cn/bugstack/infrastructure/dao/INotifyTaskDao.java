@@ -3,6 +3,8 @@ package cn.bugstack.infrastructure.dao;
 import cn.bugstack.infrastructure.dao.po.NotifyTask;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 回调任务
@@ -13,4 +15,12 @@ public interface INotifyTaskDao {
 
     void insert(NotifyTask notifyTask);
 
+    NotifyTask queryUnExecutedNotifyTaskByTeamId(String teamId);
+    List<NotifyTask> queryUnExecutedNotifyTaskList();
+
+    int updateNotifyTaskStatusSuccess(String teamId);
+
+    int updateNotifyTaskStatusRetry(String teamId);
+
+    int updateNotifyTaskStatusError(String teamId);
 }

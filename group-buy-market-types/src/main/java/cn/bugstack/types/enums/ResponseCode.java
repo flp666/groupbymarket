@@ -33,6 +33,8 @@ public enum ResponseCode {
 
 
     UPDATE_ZERO("0004", "更新记录为0"),
+
+    HTTP_EXCEPTION("0005", "HTTP接口调用异常"),
     ;
 
 
