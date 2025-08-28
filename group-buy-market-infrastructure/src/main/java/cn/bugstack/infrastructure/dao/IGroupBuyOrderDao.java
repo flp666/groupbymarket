@@ -3,6 +3,9 @@ package cn.bugstack.infrastructure.dao;
 import cn.bugstack.infrastructure.dao.po.GroupBuyOrder;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 用户拼单
@@ -25,4 +28,11 @@ public interface IGroupBuyOrderDao {
 
     Integer updateOrderStatus2COMPLETE(String teamId);
 
+    List<GroupBuyOrder> queryGroupBuyProgressByTeamIds(Set<String> teamIds);
+
+    Integer queryAllTeamCount(Set<String> teamIds);
+
+    Integer queryAllTeamCompleteCount(Set<String> teamIds);
+
+    Integer queryAllUserCount(Set<String> teamIds);
 }

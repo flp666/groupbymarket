@@ -60,6 +60,7 @@
         from group_buy_order where team_id = #{teamId}
     </select>
 
+
     <update id="updateAddCompleteCount" parameterType="java.lang.String">
         <![CDATA[
         update group_buy_order
@@ -73,5 +74,42 @@
         set status = 1, update_time= now()
         where team_id = #{teamId} and status = 0
     </update>
+
+    <select id="queryGroupBuyProgressByTeamIds" resultMap="dataMap">
+        select team_id, activity_id, target_count, complete_count, lock_count, status, valid_start_time, valid_end_time,
+        notify_url
+        from group_buy_order
+        where status = 0 and target_count > lock_count and team_id in
+              <foreach collection="teamIds" item="teamId" open="(" close=")" separator=",">
+                  #{teamId}
+              </foreach>
+    </select>
+
+
+
+    <select id="queryAllTeamCount" resultType="java.lang.Integer">
+        select count(id) from group_buy_order
+        where team_id in
+                <foreach collection="teamIds" separator="," item="teamId" open="(" close=")">
+                    #{teamId}
+                </foreach>
+    </select>
+
+    <select id="queryAllTeamCompleteCount" resultType="java.lang.Integer">
+        select count(id) from group_buy_order
+            where status =1
+            and team_id in
+                <foreach collection="teamIds" separator="," item="teamId" open="(" close=")">
+                    #{teamId}
+                </foreach>
+    </select>
+
+    <select id="queryAllUserCount" resultType="java.lang.Integer">
+        select sum(lock_count) from group_buy_order
+        where team_id in
+        <foreach item="teamId" collection="teamIds" open="(" separator="," close=")">
+            #{teamId}
+        </foreach>
+    </select>
 
 </mapper>

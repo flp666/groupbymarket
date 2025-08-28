@@ -30,7 +30,7 @@ public class MarketTradeControllerTest {
     @Test
     public void test_lockMarketPayOrder() throws Exception {
         LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO = new LockMarketPayOrderRequestDTO();
-        lockMarketPayOrderRequestDTO.setUserId("xiaofuge05");
+        lockMarketPayOrderRequestDTO.setUserId("xiaofuge06");
         lockMarketPayOrderRequestDTO.setTeamId(null);
         lockMarketPayOrderRequestDTO.setActivityId(100123L);
         lockMarketPayOrderRequestDTO.setGoodsId("9890001");
@@ -47,7 +47,7 @@ public class MarketTradeControllerTest {
     @Test
     public void test_lockMarketPayOrder_teamId_not_null() throws Exception {
         LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO = new LockMarketPayOrderRequestDTO();
-        lockMarketPayOrderRequestDTO.setUserId("xiaofuge07");
+        lockMarketPayOrderRequestDTO.setUserId("xiaofuge06");
         lockMarketPayOrderRequestDTO.setTeamId("98754096");
         lockMarketPayOrderRequestDTO.setActivityId(100123L);
         lockMarketPayOrderRequestDTO.setGoodsId("9890001");
