@@ -180,7 +180,7 @@ public class MarketTradeController implements IMarketTradeService {
 
     @Override
     @RequestMapping(value = "settlement_market_pay_order", method = RequestMethod.POST)
-    public Response<SettlementMarketPayOrderResponseDTO> settlementMarketPayOrder(SettlementMarketPayOrderRequestDTO requestDTO) throws Exception {
+    public Response<SettlementMarketPayOrderResponseDTO> settlementMarketPayOrder(@RequestBody SettlementMarketPayOrderRequestDTO requestDTO) throws Exception {
 
         try {
             log.info("营销交易组队结算开始:{} outTradeNo:{}", requestDTO.getUserId(), requestDTO.getOutTradeNo());
