@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 public class MarketTradeControllerTest {
 
     @Resource
-    private IMarketTradeService marketTradeService;//注意这个测试类 注入的是spi层的IMarketTradeService 其实测试的是controoler的lockMarketPayOrder方法 这样测试怪不得老师没有加@RequestBody
+    private IMarketTradeService marketTradeService;//注意这个测试类 注入的是api层的IMarketTradeService 其实测试的是controller的lockMarketPayOrder方法 这样测试怪不得老师没有加@RequestBody
 
     @Test
     public void test_lockMarketPayOrder() throws Exception {

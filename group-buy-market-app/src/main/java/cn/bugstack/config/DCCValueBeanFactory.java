@@ -148,7 +148,7 @@ public class DCCValueBeanFactory implements BeanPostProcessor {
                 //targetBeanObject：这是目标对象。它就是从Spring容器里取出来的、真实的、已经被实例化的那个对象。
                 //比如，它就是 DCCService 这个类的一个具体实例（如 DCCService@5f1509）。
                 field.setAccessible(true);
-                field.set(targetBeanObject, setValue);
+                field.set(targetBeanObject, setValue);  //这个对象的这个属性 设置为setValue
                 field.setAccessible(false);
 
             } catch (Exception e) {

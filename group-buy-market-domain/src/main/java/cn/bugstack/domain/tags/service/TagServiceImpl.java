@@ -30,8 +30,8 @@ public class TagServiceImpl implements ITagService {
 
         // 3. 数据写入记录
         ArrayList<String> userIdList = new ArrayList<>();
-        userIdList.add("x");
-        userIdList.add("y");
+        userIdList.add("r");
+        userIdList.add("p");
         //userIdList.add("xiaofuge12");
         //userIdList.add("xiaofuge13");
 

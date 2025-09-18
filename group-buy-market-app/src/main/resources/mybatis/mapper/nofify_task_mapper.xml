@@ -26,6 +26,8 @@
         from notify_task
         where team_id = #{teamId} and notify_status in (0, 2)
     </select>
+
+
     <select id="queryUnExecutedNotifyTaskList" resultMap="dataMap">
         select activity_id, team_id, notify_url, notify_count, notify_status, parameter_json
         from notify_task
@@ -44,7 +46,8 @@
     </update>
 
     <update id="updateNotifyTaskStatusRetry">
-        update notify_task set notify_count = notify_count + 1, notify_status = 2, update_time = now()
-                           where team_id=#{teamId}
+        update notify_task set notify_count = notify_count + 1,
+                notify_status = 2, update_time = now()
+         where team_id=#{teamId}
     </update>
 </mapper>

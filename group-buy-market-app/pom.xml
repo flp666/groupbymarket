@@ -79,7 +79,7 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- 工程模块；启动依赖 trigger->domain, infrastructure-->
+        <!-- 工程模块；启动依赖 trigger->api, infrastructure->domain-->
         <dependency>
             <groupId>cn.bugstack</groupId>
             <artifactId>group-buy-market-trigger</artifactId>
