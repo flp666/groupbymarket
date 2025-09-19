@@ -50,6 +50,7 @@ public class GroupBuyOrderList extends Page {
     private Date outTradeTime;
     /** 唯一业务ID */
     private String bizId;
+    private BigDecimal payPrice;
     /** 创建时间 */
     private Date createTime;
     /** 更新时间 */

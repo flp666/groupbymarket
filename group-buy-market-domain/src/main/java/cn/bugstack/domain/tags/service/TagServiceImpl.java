@@ -3,12 +3,9 @@ package cn.bugstack.domain.tags.service;
 import cn.bugstack.domain.tags.adapter.repository.ITagRepository;
 import cn.bugstack.domain.tags.model.entity.CrowdTagsJobEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -30,8 +27,8 @@ public class TagServiceImpl implements ITagService {
 
         // 3. 数据写入记录
         ArrayList<String> userIdList = new ArrayList<>();
-        userIdList.add("r");
-        userIdList.add("p");
+        userIdList.add("xiaofugeflp1");
+        userIdList.add("xiaofugeflp");
         //userIdList.add("xiaofuge12");
         //userIdList.add("xiaofuge13");
 

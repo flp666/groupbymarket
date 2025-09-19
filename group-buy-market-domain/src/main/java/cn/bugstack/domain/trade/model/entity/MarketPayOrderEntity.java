@@ -29,4 +29,11 @@ public class MarketPayOrderEntity {
     /** 拼单组队ID */
     private String teamId;
 
+    /** 原始价格 */
+    private BigDecimal originalPrice;
+
+    /** 支付金额 */
+    private BigDecimal payPrice;
+
 }
+
