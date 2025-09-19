@@ -56,7 +56,7 @@ public class ActivityUsabilityRuleFilter implements ILogicHandler<TradeLockRuleC
         dynamicContext.setGroupBuyActivityEntity(groupBuyActivityEntity);
 
         // 走到下一个责任链节点
-        return next(requestParameter, dynamicContext);//这玩意返回值是TradeRuleFilterBackEntity？？TODO  还是看BaseLinked
+        return next(requestParameter, dynamicContext);
 
 
     }
