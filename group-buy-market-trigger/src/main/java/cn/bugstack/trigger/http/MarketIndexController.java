@@ -111,6 +111,7 @@ public class MarketIndexController implements IMarketIndexService {
                     .goods(goods)
                     .teamList(teamList)
                     .teamStatistic(teamStatistic)
+                    .activityId(activityId)
                     .build();
 
             log.info("查询拼团营销配置完成:{} goodsId:{} response:{}", requestDTO.getUserId(), requestDTO.getGoodsId(), JSON.toJSONString(responseDTO));
